@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Rita Matar — Portfolio"
+description = "Rita Matar's graphic design portfolio website, faithfully recreated from her PDF portfolio. Displays all 12 pages of her portfolio including the cover, about me, design projects (Crudo House, Miny Gems, Unraveled, McDonald's, Porsche, Ferrari, Mind Spill), social work designs, and contact info."
+version = "1.0.0"
+id = "artifacts/rita-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21871
+
+[services.development]
+run = "pnpm --filter @workspace/rita-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/rita-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/rita-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21871"
+BASE_PATH = "/"
